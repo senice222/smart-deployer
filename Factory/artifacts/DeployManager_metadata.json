@@ -1,0 +1,508 @@
+{
+	"compiler": {
+		"version": "0.8.29+commit.ab55807c"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"inputs": [],
+				"name": "DeploymentFailed",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "DoesNotRegistred",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "FailedDeployment",
+				"type": "error"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "balance",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "needed",
+						"type": "uint256"
+					}
+				],
+				"name": "InsufficientBalance",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "NotActive",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "NotEnoughFunds",
+				"type": "error"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "owner",
+						"type": "address"
+					}
+				],
+				"name": "OwnableInvalidOwner",
+				"type": "error"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "account",
+						"type": "address"
+					}
+				],
+				"name": "OwnableUnauthorizedAccount",
+				"type": "error"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "contractAddress",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "oldFee",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "newFee",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "timestamp",
+						"type": "uint256"
+					}
+				],
+				"name": "ContractFeeUpdated",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "contractAddress",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "bool",
+						"name": "status",
+						"type": "bool"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "timestamp",
+						"type": "uint256"
+					}
+				],
+				"name": "ContractStatusUpdated",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "contractAddress",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "fee",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "bool",
+						"name": "isActive",
+						"type": "bool"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "timestamp",
+						"type": "uint256"
+					}
+				],
+				"name": "NewContractAdded",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "addressDeployer",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "contractAddress",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "fee",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "timestamp",
+						"type": "uint256"
+					}
+				],
+				"name": "NewDeployment",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "previousOwner",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "newOwner",
+						"type": "address"
+					}
+				],
+				"name": "OwnershipTransferred",
+				"type": "event"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_contract",
+						"type": "address"
+					}
+				],
+				"name": "activate",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_contractAddress",
+						"type": "address"
+					},
+					{
+						"internalType": "bool",
+						"name": "_active",
+						"type": "bool"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_fee",
+						"type": "uint256"
+					}
+				],
+				"name": "addNewContract",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "contractsData",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "isActive",
+						"type": "bool"
+					},
+					{
+						"internalType": "uint256",
+						"name": "fee",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "registredAt",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_contract",
+						"type": "address"
+					}
+				],
+				"name": "deactivate",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_utilityContract",
+						"type": "address"
+					},
+					{
+						"internalType": "bytes",
+						"name": "_initData",
+						"type": "bytes"
+					}
+				],
+				"name": "deploy",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "payable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "deployedContracts",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "owner",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "renounceOwnership",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "newOwner",
+						"type": "address"
+					}
+				],
+				"name": "transferOwnership",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_contract",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_fee",
+						"type": "uint256"
+					}
+				],
+				"name": "updateFee",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"errors": {
+				"FailedDeployment()": [
+					{
+						"details": "The deployment failed."
+					}
+				],
+				"InsufficientBalance(uint256,uint256)": [
+					{
+						"details": "The ETH balance of the account is not enough to perform the operation."
+					}
+				],
+				"OwnableInvalidOwner(address)": [
+					{
+						"details": "The owner is not a valid owner account. (eg. `address(0)`)"
+					}
+				],
+				"OwnableUnauthorizedAccount(address)": [
+					{
+						"details": "The caller account is not authorized to perform an operation."
+					}
+				]
+			},
+			"kind": "dev",
+			"methods": {
+				"owner()": {
+					"details": "Returns the address of the current owner."
+				},
+				"renounceOwnership()": {
+					"details": "Leaves the contract without owner. It will not be possible to call `onlyOwner` functions. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby disabling any functionality that is only available to the owner."
+				},
+				"transferOwnership(address)": {
+					"details": "Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner."
+				}
+			},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"Factory/DeployManager.sol": "DeployManager"
+		},
+		"evmVersion": "cancun",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"@openzeppelin/contracts/access/Ownable.sol": {
+			"keccak256": "0xff6d0bb2e285473e5311d9d3caacb525ae3538a80758c10649a4d61029b017bb",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://8ed324d3920bb545059d66ab97d43e43ee85fd3bd52e03e401f020afb0b120f6",
+				"dweb:/ipfs/QmfEckWLmZkDDcoWrkEvMWhms66xwTLff9DDhegYpvHo1a"
+			]
+		},
+		"@openzeppelin/contracts/proxy/Clones.sol": {
+			"keccak256": "0x7162fa3c6971aa6f0a70160fed018edbb8b1db3af9b034ef3f7c224c3bdb7431",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://f212d25e8f357209838ad7ce8ebc89de79906d9fe580566962e889ecb090e6b4",
+				"dweb:/ipfs/QmdbLuLwX24VB1Gdrabke584WyaUkuJSWuDzzuRgqAMFge"
+			]
+		},
+		"@openzeppelin/contracts/utils/Context.sol": {
+			"keccak256": "0x493033a8d1b176a037b2cc6a04dad01a5c157722049bbecf632ca876224dd4b2",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://6a708e8a5bdb1011c2c381c9a5cfd8a9a956d7d0a9dc1bd8bcdaf52f76ef2f12",
+				"dweb:/ipfs/Qmax9WHBnVsZP46ZxEMNRQpLQnrdE4dK8LehML1Py8FowF"
+			]
+		},
+		"@openzeppelin/contracts/utils/Create2.sol": {
+			"keccak256": "0xbb7e8401583d26268ea9103013bcdcd90866a7718bd91105ebd21c9bf11f4f06",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://866a11ad89c93ee918078f7a46ae31e17d89216ce64603f0d34be7ed0a5c520e",
+				"dweb:/ipfs/QmW3ckLEJg2v2NzuVLNJFmRuerGSipw6Dzg6ntbmqbAGoC"
+			]
+		},
+		"@openzeppelin/contracts/utils/Errors.sol": {
+			"keccak256": "0x6afa713bfd42cf0f7656efa91201007ac465e42049d7de1d50753a373648c123",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://ba1d02f4847670a1b83dec9f7d37f0b0418d6043447b69f3a29a5f9efc547fcf",
+				"dweb:/ipfs/QmQ7iH2keLNUKgq2xSWcRmuBE5eZ3F5whYAkAGzCNNoEWB"
+			]
+		},
+		"Factory/DeployManager.sol": {
+			"keccak256": "0x0bcc875253ef47353b2b079b62c2d75044421bc2b1a517dd43c67c44224a2a20",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://f65f39ca3ad4df7123c354a4ca2cd76663d66b733fa755e4b50d894084014544",
+				"dweb:/ipfs/QmeRNWga179UJH1WY9npNmjMvsuMirxeZfrSdD7BoGigcw"
+			]
+		},
+		"Factory/IUtilityContract.sol": {
+			"keccak256": "0x1ca54a5c5c2e01d9e24a179f366d5fa686ce0fe5d809ac6f750c512dbf592d4f",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://32f31607a49570435fc6675efbae36356239ea5f49cc4085d5dce18b5adfe13f",
+				"dweb:/ipfs/QmVA69FMfUh5xiW5ZvCB2Q132xAnJz4KcLeLsKTwtr5fEn"
+			]
+		}
+	},
+	"version": 1
+}
