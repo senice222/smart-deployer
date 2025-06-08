@@ -1,21 +1,20 @@
 //SPDX-License-Identifier: MIT
 pragma solidity ^0.8.29;
 
-import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 import "../IUtilityContract.sol";
 
-contract ERC20Airdropper is IUtilityContract, Ownable {
+contract ERC721Airdropper is IUtilityContract, Ownable {
     constructor() Ownable(msg.sender) { }
-    IERC20 public token;
-    uint256 public amount; // с учетом decimals
+    IERC721 public token;
     address public treasury;
 
     bool private initialized;
 
     error AlreadyInitialized();
     error MisMatch();
-    error NotEnoughApprove();
+    error NeedToApproveTokens();
     error TransferFail();
 
     modifier notInitialized() {
@@ -24,10 +23,9 @@ contract ERC20Airdropper is IUtilityContract, Ownable {
     }
 
     function initialize(bytes memory _initData) notInitialized external returns(bool) {
-        (address _token, address _treasury, uint256 _amount, address _owner) = abi.decode(_initData, (address, address, uint256, address));
+        (address _token, address _treasury, address _owner) = abi.decode(_initData, (address, address, address));
 
-        token = IERC20(_token);
-        amount = _amount;
+        token = IERC721(_token);
         treasury = _treasury;
 
         Ownable.transferOwnership(_owner);
@@ -40,12 +38,12 @@ contract ERC20Airdropper is IUtilityContract, Ownable {
         return abi.encode(_token, _treasury, _amount, _owner);
     }
 
-    function airdrop(address[] calldata receivers, uint256[] calldata amounts) external onlyOwner {
-        require(receivers.length == amounts.length, MisMatch());
-        require(token.allowance(treasury, address(this)) >= amount, NotEnoughApprove());
+    function airdrop(address[] calldata receivers, uint256[] calldata tokenId) external onlyOwner {
+        require(receivers.length == tokenId.length, MisMatch());
+        require(token.isApprovedForAll(treasury, address(this)), NeedToApproveTokens());
 
         for (uint256 i = 0; i < receivers.length; i++) {
-            require(token.transferFrom(treasury, receivers[i], amounts[i]), TransferFail());
+            token.safeTransferFrom(treasury, receivers[i], tokenId[i], "");
         }
     }
 
